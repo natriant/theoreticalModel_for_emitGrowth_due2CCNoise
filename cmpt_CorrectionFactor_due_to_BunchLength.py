@@ -22,9 +22,13 @@ plt.rc('text', usetex=False)
 plt.rc('font', family='serif')
 plt.rcParams.update(params)
 
+
 savefig = False
+
+
 clight = 299792458  # light speed in meters/second
-f_RF = 400.789e6  # CC frequency in Hz
+f_CC_RF = 400.789e6  # CC frequency in Hz
+
 sigma_z_list = np.linspace(0, 0.19, 100)  # rms bunch length in meters
 noise_type = 'AN'  # options: 'PN', 'AN'
 if noise_type == 'PN':
@@ -40,7 +44,7 @@ bunch_lengths_in_rad = []
 C_list = []
 sigma_phi_list = []
 for z in sigma_z_list[1:]:  # skip the first element as bunch length zero doesn't exist
-    sigma_phi = bunch_length_m_to_rad(z, clight, f_RF)
+    sigma_phi = bunch_length_m_to_rad(z, clight, f_CC_RF)
     my_C = cmpt_bunch_length_correction_factor(sigma_phi, noise_type)
 
     sigma_phi_list.append(sigma_phi)

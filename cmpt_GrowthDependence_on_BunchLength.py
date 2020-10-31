@@ -1,6 +1,10 @@
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
-from my_functions import *
+sys.path.append('../')
+from utils.bunchLengthConversions import *
+from utils.cmptTheoreticalEmitGrowth import *
+from utils.NoiseConversions import *
 
 # plotting parameters
 params = {'legend.fontsize': 20,

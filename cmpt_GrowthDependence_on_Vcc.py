@@ -22,10 +22,9 @@ plt.rc('text', usetex=False)
 plt.rc('font', family='serif')
 plt.rcParams.update(params)
 
+
 noise_type = 'BOTH'  # options: 'AN', 'PN', 'BOTH'
 savefig = False
-# the noise levels correspond to the coast2-setting2 ~ coast3-setting1
-PSD_PN, PSD_AN = -111.28, -115.71  # PSD at fb in dBc/Hz
 
 # Machine and beam parameters
 betay = 73  # m in CC2, ~76 in CC1 (MAD-X)
@@ -35,10 +34,16 @@ Eb = 270e9  # eV
 beta_0 = 0.999999  # cmpt it from the rest
 gamma_0 = 287.7  # cmt it
 clight = 299792458  # light speed in meters/second
-f_RF = 400.789e6  # CC frequency in Hz
+f_CC_RF = 400.789e6  # CC frequency in Hz
+
+
+# the noise levels correspond to the coast2-setting2 ~ coast3-setting1
+PSD_PN, PSD_AN = -111.28, -115.71  # PSD at fb in dBc/Hz
 sigma_t = 1.7e-9/4
+
+
 sigma_z = bunch_length_time_to_m(sigma_t, clight)
-sigma_phi = bunch_length_m_to_rad(sigma_z, clight, f_RF)
+sigma_phi = bunch_length_m_to_rad(sigma_z, clight, f_CC_RF)
 
 dey_PN_list = []
 dey_AN_list = []

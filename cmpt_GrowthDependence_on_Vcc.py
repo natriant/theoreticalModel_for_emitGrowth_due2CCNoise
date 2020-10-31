@@ -24,7 +24,7 @@ plt.rcParams.update(params)
 
 
 noise_type = 'BOTH'  # options: 'AN', 'PN', 'BOTH'
-savefig = False
+savefig = True
 
 # Machine and beam parameters
 betay = 73  # m in CC2, ~76 in CC1 (MAD-X)
@@ -37,8 +37,8 @@ clight = 299792458  # light speed in meters/second
 f_CC_RF = 400.789e6  # CC frequency in Hz
 
 
-# the noise levels correspond to the coast2-setting2 ~ coast3-setting1
-PSD_PN, PSD_AN = -111.28, -115.71  # PSD at fb in dBc/Hz
+# the noise levels correspond to the coast3-setting1
+PSD_PN, PSD_AN = -101.48, -106.99 # -111.28, -115.71  # PSD at fb in dBc/Hz
 sigma_t = 1.7e-9/4
 
 
@@ -57,22 +57,17 @@ for Vcc in Vcc_list:
     dey_AN_list.append(emit_growth_amplitude_noise(betay, Vcc, frev, Eb, myC_AN, ssb_2_dsb(PSD_AN), True))
 
 
-
-
 fig, ax = plt.subplots(1,1)
-#ax.plot(np.array(sigma_t_list)*4*1e9, (np.array(dey_AN_list)+np.array(dey_PN_list))*1e9*beta_0*gamma_0**1e-3*3600 , '-')
-
-#ax.plot(np.array(sigma_t_list)*4*1e9,  np.array(dey_PN_list)*1e9*beta_0*gamma_0*1e-3*3600 , '-')
-#ax.plot(np.array(sigma_t_list)*4*1e9,  np.array(dey_AN_list)*1e9*beta_0*gamma_0*1e-3*3600 , '-')
 ax.plot(Vcc_list/1e6,   (np.array(dey_AN_list)+np.array(dey_PN_list))*1e9*beta_0*gamma_0*1e-3*3600, '-', c='k')
+# Plot vertical lines, at 0.7MV and 1MV
+ax.vlines(0.7, ymin=0, ymax=2.45, colors='grey', linestyle='dashed')
+ax.vlines(1.0, ymin=0, ymax=5.2, colors='grey', linestyle='dashed')
 
-
-#ax.legend()
 ax.set_xlabel('Crab Cavity Voltage (MV)')
 ax.set_ylabel(r'$d \epsilon_y / dt$' + ' ' +r'$\mu/h$')
 ax.grid(linestyle='--')
-#ax.set_xlim(1.5, 2.5)
-#ax.set_ylim(4.8, 5.5)
+#ax.set_ylim(0, 10)
+
 plt.tight_layout()
 if savefig:
     plt.savefig('./figures/dey_vs_Vcc_Coast2-Setting2_14_47.png')

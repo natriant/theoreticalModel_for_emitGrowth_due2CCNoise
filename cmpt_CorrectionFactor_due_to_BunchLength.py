@@ -52,7 +52,7 @@ for z in sigma_z_list[1:]:  # skip the first element as bunch length zero doesn'
 
 
 # A. Bunch length in meters
-fig, ax1 = plt.subplots(figsize=(8,6))
+fig, ax1 = plt.subplots(figsize=(8, 6))
 ax1.plot(sigma_z_list[1:], C_list, c=my_color)
 #ax1.plot(sigma_z, C, 'o',color='r', markersize=7, label=r'$\rm \sigma_z$' +' at SPS CC tests')
 if noise_type == 'PN':

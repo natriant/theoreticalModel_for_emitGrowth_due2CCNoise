@@ -25,6 +25,9 @@ plt.rcParams.update(params)
 # the noise levels correspond to the coast2-setting2 ~ coast3-setting1
 PSD_PN, PSD_AN = -111.28, -115.71  # PSD at fb in dBc/Hz
 
+
+
+
 # Machine and beam parameters
 betay = 73  # m in CC2, ~76 in CC1 (MAD-X)
 Vcc = 1e6  # V

@@ -28,9 +28,8 @@ plt.rc('font', family='serif')
 plt.rcParams.update(params)
 
 savefig = False
-# the noise levels correspond to the coast2-setting2 ~ coast3-setting1
-PSD_PN, PSD_AN = -111.28, -115.71  # PSD at fb in dBc/Hz
 
+# [coast1-setting1, coast1-setting2, coast2-setting1, coast2-setting2, coast3-setting1, coast3-setting2, coast3-setting3]
 PSD_PN_list = [-122.75, -101.48, -115.22, -111.28, -111.03, -106.46, -101.48]
 PSD_AN_list = [-128.15, -115.21, -124.06, -115.71, -116.92, -112.73, -106.99]
 

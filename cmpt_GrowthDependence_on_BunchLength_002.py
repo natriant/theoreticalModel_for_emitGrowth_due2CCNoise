@@ -72,8 +72,6 @@ for setting in np.arange(len(PSD_PN_list)):
     ax.plot(np.array(sigma_t_list)*4*1e9,  (np.array(dey_AN_list[setting])+np.array(dey_PN_list[setting]))*1e9*beta_0*gamma_0*1e-3*3600,'-', c='k')
 
 
-
-#ax.legend()
 ax.set_xlabel(r'$\mathrm{4 \sigma _t (ns)}$')
 ax.set_ylabel(r'$\mathrm{d \epsilon_y / dt}$' + ' ' +r'$\mathrm{\mu/h}$')
 ax.grid(linestyle='--')

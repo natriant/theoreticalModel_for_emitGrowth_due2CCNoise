@@ -1,4 +1,4 @@
-import os, sys
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 sys.path.append('../')
@@ -22,9 +22,10 @@ plt.rc('text', usetex=False)
 plt.rc('font', family='serif')
 plt.rcParams.update(params)
 
+savefig = False
 clight = 299792458  # light speed in meters/second
 f_RF = 400.789e6  # CC frequency in Hz
-sigma_z_list = np.linspace(0, 0.19, 100) # rms bunch length in meters
+sigma_z_list = np.linspace(0, 0.19, 100)  # rms bunch length in meters
 noise_type = 'AN'  # options: 'PN', 'AN'
 if noise_type == 'PN':
     my_color = 'mediumblue'
@@ -32,7 +33,7 @@ else:
     my_color = 'r'
 
 # give a list of bunch length you want to appear on the dependence
-bunch_lengths_in_s = [] # if no points --> [''] # 4sigma_t
+bunch_lengths_in_s = []  # if no points --> [''] # 4sigma_t in seconds
 bunch_lengths_in_m = []
 bunch_lengths_in_rad = []
 
@@ -44,7 +45,6 @@ for z in sigma_z_list[1:]:  # skip the first element as bunch length zero doesn'
 
     sigma_phi_list.append(sigma_phi)
     C_list.append(my_C)
-
 
 
 # A. Bunch length in meters
@@ -59,7 +59,8 @@ ax1.set_xlabel(r'$\rm \sigma_z(m)$')
 ax1.grid(linestyle='--')
 #ax1.legend()
 plt.tight_layout()
-plt.savefig('./figures/Correction_factor_bunch_length_sigmaZ_{}.png'.format(noise_type))
+if savefig:
+    plt.savefig('./figures/Correction_factor_bunch_length_sigmaZ_{}.png'.format(noise_type))
 plt.close()
 
 # B. Bunch length in rad
@@ -74,7 +75,8 @@ ax1.set_xlabel(r'$\rm \sigma_ \phi(rad)$')
 ax1.grid(linestyle='--')
 #ax1.legend()
 plt.tight_layout()
-plt.savefig('./figures/Correction_factor_bunch_length_sigmaPhi_{}.png'.format(noise_type))
+if savefig:
+    plt.savefig('./figures/Correction_factor_bunch_length_sigmaPhi_{}.png'.format(noise_type))
 plt.close()
 
 # B. Bunch length in seconds
@@ -93,5 +95,6 @@ ax1.set_xlabel(r'$\rm 4 \sigma_ t(ns)$')
 ax1.grid(linestyle='--')
 #ax1.legend()
 plt.tight_layout()
-plt.savefig('./figures/Correction_factor_bunch_length_sigmat_{}.png'.format(noise_type))
+if savefig:
+    plt.savefig('./figures/Correction_factor_bunch_length_sigmat_{}.png'.format(noise_type))
 plt.close()

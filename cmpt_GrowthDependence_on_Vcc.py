@@ -1,6 +1,10 @@
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
-from my_functions import *
+sys.path.append('../')
+from utils.bunchLengthConversions import *
+from utils.cmptTheoreticalEmitGrowth import *
+from utils.NoiseConversions import *
 
 # plotting parameters
 params = {'legend.fontsize': 20,
@@ -19,7 +23,7 @@ plt.rc('font', family='serif')
 plt.rcParams.update(params)
 
 noise_type = 'BOTH'  # options: 'AN', 'PN', 'BOTH'
-
+savefig = False
 # the noise levels correspond to the coast2-setting2 ~ coast3-setting1
 PSD_PN, PSD_AN = -111.28, -115.71  # PSD at fb in dBc/Hz
 
@@ -65,8 +69,9 @@ ax.grid(linestyle='--')
 #ax.set_xlim(1.5, 2.5)
 #ax.set_ylim(4.8, 5.5)
 plt.tight_layout()
-#plt.show()
-
-plt.savefig('./figures/dey_vs_Vcc_Coast2-Setting2_14_47.png')
-
+if savefig:
+    plt.savefig('./figures/dey_vs_Vcc_Coast2-Setting2_14_47.png')
+else:
+    plt.show()
+plt.close()
 

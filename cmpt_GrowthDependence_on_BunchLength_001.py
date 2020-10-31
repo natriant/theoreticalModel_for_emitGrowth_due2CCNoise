@@ -30,6 +30,7 @@ plt.rcParams.update(params)
 savefig = False
 
 # [coast1-setting1, coast1-setting2, coast2-setting1, coast2-setting2, coast3-setting1, coast3-setting2, coast3-setting3]
+my_settings = ['Coast1-Setting1', 'Coast1-Setting2', 'Coast2-Setting1', 'Coast2-Setting2', 'Coast3-Setting1', 'Coast3-Setting2', 'Coast3-Setting3']
 PSD_PN_list = [-122.75, -101.48, -115.22, -111.28, -111.03, -106.46, -101.48]
 PSD_AN_list = [-128.15, -115.21, -124.06, -115.71, -116.92, -112.73, -106.99]
 
@@ -64,11 +65,11 @@ for PSD_AN in PSD_AN_list:
 
 
 # Plot the dependence for every noise setting
-for setting in np.arange(len(PSD_PN_list)):
+for index, setting in enumerate(my_settings):
     fig, ax = plt.subplots(1, 1)
-    ax.plot(np.array(sigma_t_list)*4*1e9,  (np.array(dey_AN_list[setting])+np.array(dey_PN_list[setting]))*1e9*beta_0*gamma_0*1e-3*3600,'-', c='k')
+    ax.plot(np.array(sigma_t_list)*4*1e9,  (np.array(dey_AN_list[index])+np.array(dey_PN_list[index]))*1e9*beta_0*gamma_0*1e-3*3600,'-', c='k')
 
-    ax.set_title(f'PN: {PSD_PN_list[setting]} dBc/Hz, AN: {PSD_AN_list[setting]} dBc/Hz')
+    ax.set_title(f'PN: {PSD_PN_list[index]} dBc/Hz, AN: {PSD_AN_list[index]} dBc/Hz')
     ax.set_xlabel(r'$\mathrm{4 \sigma _t (ns)}$')
     ax.set_ylabel(r'$\mathrm{d \epsilon_y / dt}$' + ' ' +r'$\mathrm{\mu/h}$')
     ax.grid(linestyle='--')
@@ -79,13 +80,14 @@ for setting in np.arange(len(PSD_PN_list)):
         #plt.show()
     plt.close()
 
-# Plot the relative dependence, so you can plot everything on the same plot
-savefig = True
+# A. Plot the relative dependence, so you can plot everything on the same plot
+# Legend show the noise settings in dBc/Hz
+savefig = False
 fig, ax = plt.subplots(1, 1)
-for setting in np.arange(len(PSD_PN_list)):
-    relative_growth = (np.array(dey_AN_list[setting]) + np.array(dey_PN_list[setting])) / (np.array(dey_AN_list[setting][0]) + np.array(dey_PN_list[setting][0]))
+for index, setting in enumerate(my_settings):
+    relative_growth = (np.array(dey_AN_list[index]) + np.array(dey_PN_list[index])) / (np.array(dey_AN_list[index][0]) + np.array(dey_PN_list[index][0]))
 
-    ax.plot(np.array(sigma_t_list)*4*1e9, relative_growth, '-', c=f'C{setting}', label=f'PN: {PSD_PN_list[setting]} dBc/Hz, AN: {PSD_AN_list[setting]} dBc/Hz')
+    ax.plot(np.array(sigma_t_list)*4*1e9, relative_growth, '-', c=f'C{index}', label=f'PN: {PSD_PN_list[index]} dBc/Hz, AN: {PSD_AN_list[index]} dBc/Hz')
 ax.legend()
 ax.set_xlabel(r'$\mathrm{4 \sigma _t (ns)}$')
 ax.set_ylabel('relative '+r'$\mathrm{d \epsilon_y / dt}$')
@@ -99,3 +101,24 @@ else:
     plt.show()
 plt.close()
 
+# B. Plot the relative dependence, so you can plot everything on the same plot
+# Legend show the noise settings
+
+savefig = True
+fig, ax = plt.subplots(1, 1)
+for index, setting in enumerate(my_settings):
+    relative_growth = (np.array(dey_AN_list[index]) + np.array(dey_PN_list[index])) / (np.array(dey_AN_list[index][0]) + np.array(dey_PN_list[index][0]))
+
+    ax.plot(np.array(sigma_t_list)*4*1e9, relative_growth, '-', c=f'C{index}', label=f'{setting}')
+ax.legend()
+ax.set_xlabel(r'$\mathrm{4 \sigma _t (ns)}$')
+ax.set_ylabel('relative '+r'$\mathrm{d \epsilon_y / dt}$')
+ax.set_xlim(1.5, 2.4)
+plt.ylim(0.5, 0.9)
+ax.grid(linestyle='--')
+plt.tight_layout()
+if savefig:
+    plt.savefig('./figures/relative_dey_vs_4sigmat_zoom_legnendv2.png')
+else:
+    plt.show()
+plt.close()

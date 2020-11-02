@@ -14,13 +14,13 @@ from utils.NoiseConversions import *
 # plotting parameters
 params = {'legend.fontsize': 20,
           'figure.figsize': (9.5, 8.5),
-          'axes.labelsize': 23,
-          'axes.titlesize': 23,
-          'xtick.labelsize': 23,
-          'ytick.labelsize': 23,
+          'axes.labelsize': 25,
+          'axes.titlesize': 25,
+          'xtick.labelsize': 25,
+          'ytick.labelsize': 25,
           'image.cmap': 'jet',
-          'lines.linewidth': 3,
-          'lines.markersize':10,
+          'lines.linewidth': 4,
+          'lines.markersize':15,
           'font.family': 'sans-serif'}
 
 plt.rc('text', usetex=False)
@@ -72,25 +72,14 @@ for setting in np.arange(len(PSD_PN_list)):
     ax.plot(np.array(sigma_t_list)*4*1e9,  (np.array(dey_AN_list[setting])+np.array(dey_PN_list[setting]))*1e9*beta_0*gamma_0*1e-3*3600,'-', c='k')
 
 
-ax.set_xlabel(r'$\mathrm{4 \sigma _t (ns)}$')
-ax.set_ylabel(r'$\mathrm{d \epsilon_y / dt}$' + ' ' +r'$\mathrm{\mu/h}$')
-ax.grid(linestyle='--')
-#ax.set_xlim(1.5, 2.5)
-#ax.set_ylim(4.8, 5.5)
-plt.tight_layout()
-#plt.show()
 
-plt.savefig('./figures/dey_vs_4sigmat_Coast2-Setting2.png')
-
-
-'''
 sigma_t_points = [(1.71e-9)/4, (2.21e-9)/4,(2.13e-9)/4, (2.1e-9)/4 ]
 #sigma_t_points = [(1.63e-9)/4, (2.15e-9)/4,(2.07e-9)/4, (2.05e-9)/4 ]
 
 
 for index, my_sigma_t in enumerate(sigma_t_points):
     my_sigma_z = bunch_length_time_to_m(my_sigma_t, clight)
-    my_sigma_phi = bunch_length_m_to_rad(my_sigma_z, clight, f_RF)
+    my_sigma_phi = bunch_length_m_to_rad(my_sigma_z, clight, f_CC_RF)
     my_C_PN = cmpt_bunch_length_correction_factor(my_sigma_phi, noise_type='PN')
     my_C_AN = cmpt_bunch_length_correction_factor(my_sigma_phi, noise_type='AN')
 
@@ -98,4 +87,17 @@ for index, my_sigma_t in enumerate(sigma_t_points):
     dey_AN = emit_growth_amplitude_noise(betay, Vcc, frev, Eb, my_C_AN, ssb_2_dsb(PSD_AN), True)
 
     ax.plot(my_sigma_t*4*1e9, (dey_AN+dey_PN)*1e9*beta_0*gamma_0*1e-3*3600, 'o', c='C{}'.format(index), label='bunch {}'.format(index+1))
-'''
+
+
+ax.legend(loc=1)
+ax.set_xlabel(r'$\mathrm{4 \sigma _t \ [ns]}$')
+ax.set_ylabel(r'$\mathrm{d \epsilon_y / dt \ [\mu m/h]}$')
+ax.grid(linestyle='--')
+#ax.set_xlim(1.5, 2.5)
+#ax.set_ylim(4.8, 5.5)
+plt.tight_layout()
+#plt.show()
+
+plt.savefig('./figures/dey_vs_4sigmat_Coast2-Setting2_withBunches_v2.png')
+
+

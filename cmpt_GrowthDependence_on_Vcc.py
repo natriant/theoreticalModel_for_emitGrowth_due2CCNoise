@@ -24,7 +24,7 @@ plt.rcParams.update(params)
 
 
 noise_type = 'BOTH'  # options: 'AN', 'PN', 'BOTH'
-savefig = False
+savefig = True
 
 # Machine and beam parameters
 betay = 73  # m in CC2, ~76 in CC1 (MAD-X)
@@ -37,9 +37,9 @@ clight = 299792458  # light speed in meters/second
 f_CC_RF = 400.789e6  # CC frequency in Hz
 
 
-# the noise levels correspond to the coast3-setting1
-PSD_PN, PSD_AN = -111.28, -115.71 #-101.48, -106.99 # -111.28, -115.71  # PSD at fb in dBc/Hz
-sigma_t = 1.7e-9/4
+# the noise levels correspond to the coast2-setting2
+PSD_PN, PSD_AN = -111.28, -115.71  # PSD at fb in dBc/Hz
+sigma_t = 1.7e-9/4 # initial bunch length for bunch 1, coast2-setting2
 
 
 sigma_z = bunch_length_time_to_m(sigma_t, clight)
@@ -64,13 +64,13 @@ ax.vlines(0.7, ymin=0, ymax=2.45, colors='grey', linestyle='dashed')
 ax.vlines(1.0, ymin=0, ymax=5.2, colors='grey', linestyle='dashed')
 
 ax.set_xlabel('Crab Cavity Voltage (MV)')
-ax.set_ylabel(r'$d \epsilon_y / dt$' + ' ' +r'$\mu/h$')
+ax.set_ylabel(r'$\mathrm{d \epsilon_y / dt \ [\mu m/h]}$')
 ax.grid(linestyle='--')
-#ax.set_ylim(0, 10)
+ax.set_ylim(0, 10)
 
 plt.tight_layout()
 if savefig:
-    plt.savefig('./figures/dey_vs_Vcc_Coast2-Setting2_14_47.png')
+    plt.savefig('./figures/dey_vs_Vcc_Coast2-Setting2.png')
 else:
     plt.show()
 plt.close()

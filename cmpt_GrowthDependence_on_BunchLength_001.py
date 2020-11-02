@@ -104,21 +104,20 @@ plt.close()
 # B. Plot the relative dependence, so you can plot everything on the same plot
 # Legend show the noise settings
 
-savefig = True
+savefig = False
 fig, ax = plt.subplots(1, 1)
 for index, setting in enumerate(my_settings):
     relative_growth = (np.array(dey_AN_list[index]) + np.array(dey_PN_list[index])) / (np.array(dey_AN_list[index][0]) + np.array(dey_PN_list[index][0]))
-
     ax.plot(np.array(sigma_t_list)*4*1e9, relative_growth, '-', c=f'C{index}', label=f'{setting}')
 ax.legend()
 ax.set_xlabel(r'$\mathrm{4 \sigma _t (ns)}$')
 ax.set_ylabel('relative '+r'$\mathrm{d \epsilon_y / dt}$')
-ax.set_xlim(1.5, 2.4)
-plt.ylim(0.5, 0.9)
+#ax.set_xlim(1.5, 2.4)
+#plt.ylim(0.5, 0.9)
 ax.grid(linestyle='--')
 plt.tight_layout()
 if savefig:
-    plt.savefig('./figures/relative_dey_vs_4sigmat_zoom_legnendv2.png')
+    plt.savefig('./figures/relative_dey_vs_4sigmat_zoom_legnend.png')
 else:
     plt.show()
 plt.close()

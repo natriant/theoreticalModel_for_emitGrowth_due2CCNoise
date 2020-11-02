@@ -78,9 +78,9 @@ ax.grid(linestyle='--')
 #ax.set_xlim(1.5, 2.5)
 #ax.set_ylim(4.8, 5.5)
 plt.tight_layout()
-plt.show()
+#plt.show()
 
-#plt.savefig('./figures/dey_vs_4sigmat_Coast2-Setting2_14_47.png')
+plt.savefig('./figures/dey_vs_4sigmat_Coast2-Setting2.png')
 
 
 '''
